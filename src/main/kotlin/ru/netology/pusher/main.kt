@@ -16,15 +16,30 @@ fun main() {
     FirebaseApp.initializeApp(options)
 
     val message = Message.builder()
-        .putData("action", "LIKE")
-        .putData("content", """{
+        .putData("action", "PUSH")
+        .putData(
+            "content", """{
           "userId": 1,
           "userName": "Vasiliy",
           "postId": 2,
           "postAuthor": "Netology"
-        }""".trimIndent())
+        }""".trimIndent()
+        )
         .setToken(token)
         .build()
 
-    FirebaseMessaging.getInstance().send(message)
+    val message1 = Message.builder()
+        .putData("action", "NewPost")
+        .putData(
+            "content", """{
+          "userId": 1,
+          "author": "Vasiliy",
+          "postId": 1,
+          "content": "Тестовое push-уведомление, сгенерированное ИИ. Всё в порядке — это просто проверка длины строки!"
+          }""".trimIndent()
+        )
+        .setToken(token)
+        .build()
+
+    FirebaseMessaging.getInstance().send(message1)
 }
